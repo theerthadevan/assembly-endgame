@@ -1,13 +1,23 @@
 import Status from "./components/Status"
 import { languages } from "./languages"
 import Chips from "./components/Chips"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getFarewellText } from "./utils"
 import clsx from "clsx"
 
 function App() {
   const [word, setWord] = useState("react")
   const [guessedLetters, setGuessedLetters] = useState([])
+
+  useEffect(() =>{
+    function handleKeyDown(e) {
+      const key = e.key.toLowerCase()
+      if(key >= 'a' && key <='z') addGuessedLetter(key)
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [guessedLetters])
 
   const wrongGuessCount = guessedLetters.filter(letter => !word.includes(letter)).length
   const isGameWon = [...word].every(letter => guessedLetters.includes(letter))
