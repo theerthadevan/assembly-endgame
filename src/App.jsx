@@ -35,6 +35,11 @@ function App() {
       [...prevGuessedLetters, letter])
   }
 
+  function resetGame() {
+    setWord(getRandomWord)
+    setGuessedLetters([])
+  }
+
   const currWord = [...word].map((letter, index) =>
     <span key={index}>{guessedLetters.includes(letter) ? letter.toUpperCase() : " "}</span>
   )
@@ -79,7 +84,7 @@ function App() {
       </section>
 
       {isGameOver && (<section className="newgame-button">
-        <button>New Game</button>
+        <button onClick={resetGame}>New Game</button>
       </section>)}
     </main>
   )
