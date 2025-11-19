@@ -8,7 +8,6 @@ import Confetti from "react-confetti"
 
 function App() {
   const [word, setWord] = useState(getRandomWord)
-  console.log(word)
   const [guessedLetters, setGuessedLetters] = useState([])
 
   useEffect(() =>{
@@ -71,7 +70,7 @@ function App() {
 
   return (
     <main>
-      {isGameWon && <Confetti />}
+      {isGameWon && <Confetti recycle={false} numberOfPieces={1000}/>}
       <header>
         <h1>Assembly: Endgame</h1>
         <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p> 
