@@ -2,11 +2,12 @@ import Status from "./components/Status"
 import { languages } from "./languages"
 import Chips from "./components/Chips"
 import { useEffect, useState } from "react"
-import { getFarewellText } from "./utils"
+import { getFarewellText, getRandomWord } from "./utils"
 import clsx from "clsx"
 
 function App() {
-  const [word, setWord] = useState("react")
+  const [word, setWord] = useState(getRandomWord)
+  console.log(word)
   const [guessedLetters, setGuessedLetters] = useState([])
 
   useEffect(() =>{
