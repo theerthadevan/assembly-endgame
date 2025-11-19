@@ -2,6 +2,7 @@ import Status from "./components/Status"
 import { languages } from "./languages"
 import Chips from "./components/Chips"
 import { useState } from "react"
+import { getFarewellText } from "./utils"
 import clsx from "clsx"
 
 function App() {
@@ -12,6 +13,8 @@ function App() {
   const isGameWon = [...word].every(letter => guessedLetters.includes(letter))
   const isGameLost = wrongGuessCount >= languages.length -1
   const isGameOver = isGameLost || isGameWon
+  const lastGuessedLetter = guessedLetters[guessedLetters.length- 1]
+  const isLastGuessIncorrect = lastGuessedLetter && !word.includes(lastGuessedLetter)
   
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
@@ -52,7 +55,7 @@ function App() {
         <h1>Assembly: Endgame</h1>
         <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p> 
       </header>
-      <Status isGameLost={isGameLost} isGameWon={isGameWon}/>
+      <Status isGameLost={isGameLost} isGameWon={isGameWon} isLastGuessIncorrect={isLastGuessIncorrect} statusMessage={getFarewellText(languages[wrongGuessCount -1 ]?.name)}/>
       <section className="langChip-container">
         {langChips}
       </section>
