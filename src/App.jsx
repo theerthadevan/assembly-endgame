@@ -4,6 +4,7 @@ import Chips from "./components/Chips"
 import { useEffect, useState } from "react"
 import { getFarewellText, getRandomWord } from "./utils"
 import clsx from "clsx"
+import Confetti from "react-confetti"
 
 function App() {
   const [word, setWord] = useState(getRandomWord)
@@ -40,8 +41,11 @@ function App() {
     setGuessedLetters([])
   }
 
-  const currWord = [...word].map((letter, index) =>
-    <span key={index}>{guessedLetters.includes(letter) ? letter.toUpperCase() : " "}</span>
+  const currWord = [...word].map((letter, index) =>{
+    const letterClassName = clsx(
+      isGameLost && !guessedLetters.includes(letter) && "missed-letter"
+    )
+    return (<span key={index} className={letterClassName}>{guessedLetters.includes(letter) || isGameLost ? letter.toUpperCase() : " "}</span>)}
   )
 
   const keyboard = [...alphabet].map(letter =>{
@@ -67,6 +71,7 @@ function App() {
 
   return (
     <main>
+      {isGameWon && <Confetti />}
       <header>
         <h1>Assembly: Endgame</h1>
         <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p> 
